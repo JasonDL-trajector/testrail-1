@@ -1,0 +1,36 @@
+{
+  "name": "trajector1.testrail-1",
+  "description": "TestRail-1",
+  "version": "1.0.0",
+  "author": "JasonDL-trajector",
+  "repository": {
+    "type": "git",
+    "url": "TODO: Add the GitHub URL to your extension in package.json"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.7.1",
+    "@types/react": "^16.8.0"
+  },
+  "ahaExtension": {
+    "contributes": {
+      "views": {
+        "testrail-1": {
+          "title": "TestRail-1",
+          "entryPoint": "src/views/TestRailAha.js",
+          "host": "attribute",
+          "recordTypes": [
+            "Feature",
+            "Requirement",
+            "Epic",
+            "Release"
+          ]
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "axios": "^1.5.1",
+    "dotenv": "^16.3.1"
+  }
+}

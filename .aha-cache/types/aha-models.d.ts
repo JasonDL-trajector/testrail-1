@@ -4,6 +4,7 @@ declare namespace Aha {
     | Bookmark
     | BookmarksEpicPriorityList
     | BookmarksFeaturePriorityList
+    | BookmarksInitiativePriorityList
     | BookmarksProgramBoard
     | BookmarksWorkflowBoard
     | ProjectConfiguration;
@@ -32,6 +33,7 @@ declare namespace Aha {
     | Epic
     | Feature
     | Idea
+    | Initiative
     | Project
     | Release
     | Requirement;
@@ -39,6 +41,7 @@ declare namespace Aha {
     | Epic
     | Feature
     | Idea
+    | Initiative
     | Iteration
     | NoteTemplate
     | Page
@@ -71,7 +74,12 @@ declare namespace Aha {
     | Initiative
     | Release
     | Requirement;
-  type RecordPositionInterface = Epic | Feature | Idea | Requirement;
+  type RecordPositionInterface =
+    | Epic
+    | Feature
+    | Idea
+    | Initiative
+    | Requirement;
   type ReferenceInterface =
     | Epic
     | Feature
@@ -120,7 +128,7 @@ declare namespace Aha {
     | WorkflowKind
     | WorkflowStatus;
   type RiskFactorsInterface = Epic | Feature | Requirement;
-  type ScorableInterface = Epic | Feature | Idea;
+  type ScorableInterface = Epic | Feature | Idea | Initiative;
   type SidebarSettingsInterface =
     | Bookmark
     | BookmarksProgramBoard
@@ -224,6 +232,7 @@ declare namespace Aha {
     | Epic
     | Feature
     | Idea
+    | Initiative
     | Project
     | Release
     | Requirement;
@@ -269,7 +278,7 @@ declare namespace Aha {
     | Release
     | Task
     | Unimplemented;
-  type PrioritizableRecordUnion = Epic | Feature | Idea;
+  type PrioritizableRecordUnion = Epic | Feature | Idea | Initiative;
   type RecordUnion = Epic | Feature | Requirement;
   type RecordEventSubjectUnion =
     | Epic
@@ -1102,12 +1111,14 @@ declare namespace Aha {
   type PlaceableRecordTypeEnum_Epic = 'Epic';
   type PlaceableRecordTypeEnum_Requirement = 'Requirement';
   type PlaceableRecordTypeEnum_Idea = 'Idea';
+  type PlaceableRecordTypeEnum_Initiative = 'Initiative';
   interface PlaceableRecordTypeEnum {
     values:
       | PlaceableRecordTypeEnum_Feature
       | PlaceableRecordTypeEnum_Epic
       | PlaceableRecordTypeEnum_Requirement
-      | PlaceableRecordTypeEnum_Idea;
+      | PlaceableRecordTypeEnum_Idea
+      | PlaceableRecordTypeEnum_Initiative;
     Feature: EnumValue<
       'PlaceableRecordTypeEnum',
       PlaceableRecordTypeEnum_Feature
@@ -1118,6 +1129,10 @@ declare namespace Aha {
       PlaceableRecordTypeEnum_Requirement
     >;
     Idea: EnumValue<'PlaceableRecordTypeEnum', PlaceableRecordTypeEnum_Idea>;
+    Initiative: EnumValue<
+      'PlaceableRecordTypeEnum',
+      PlaceableRecordTypeEnum_Initiative
+    >;
   }
 
   type PositionableRecordsBookmarkTypesEnum_WORKFLOW_BOARD = 'WORKFLOW_BOARD';
@@ -1575,12 +1590,14 @@ declare namespace Aha {
   type RecordReferenceTypeEnum_Epic = 'Epic';
   type RecordReferenceTypeEnum_Requirement = 'Requirement';
   type RecordReferenceTypeEnum_Idea = 'Idea';
+  type RecordReferenceTypeEnum_Initiative = 'Initiative';
   interface RecordReferenceTypeEnum {
     values:
       | RecordReferenceTypeEnum_Feature
       | RecordReferenceTypeEnum_Epic
       | RecordReferenceTypeEnum_Requirement
-      | RecordReferenceTypeEnum_Idea;
+      | RecordReferenceTypeEnum_Idea
+      | RecordReferenceTypeEnum_Initiative;
     Feature: EnumValue<
       'RecordReferenceTypeEnum',
       RecordReferenceTypeEnum_Feature
@@ -1591,6 +1608,10 @@ declare namespace Aha {
       RecordReferenceTypeEnum_Requirement
     >;
     Idea: EnumValue<'RecordReferenceTypeEnum', RecordReferenceTypeEnum_Idea>;
+    Initiative: EnumValue<
+      'RecordReferenceTypeEnum',
+      RecordReferenceTypeEnum_Initiative
+    >;
   }
 
   type ReleaseOrder_featuresBoardOrder = 'featuresBoardOrder';
@@ -3626,6 +3647,156 @@ declare namespace Aha {
     readonly query: BookmarksIdeaPriorityListQuery;
 
     attributes: BookmarksIdeaPriorityListAttributes;
+  }
+
+  /**
+   * Attributes for BookmarksInitiativePriorityList
+   * @category Aha! Model Attributes
+   */
+  interface BookmarksInitiativePriorityListAttributes {
+    readonly advancedFilters: boolean;
+
+    /**
+     * advanced filters
+     */
+    readonly advancedFiltersParsed: any;
+
+    /**
+     * Column tables used for the edit columns wizard
+     */
+    readonly columnTables: any;
+
+    /**
+     * Currently active filters for unprioritized records
+     */
+    readonly filters: Array<any>;
+
+    /**
+     * ID of the bookmark
+     */
+    readonly id: RecordId;
+
+    /**
+     * Joins used for the edit columns wizard
+     */
+    readonly joins: any;
+
+    readonly projectId: RecordId;
+
+    /**
+     * Count of all positioned records belonging to the bookmark
+     */
+    readonly totalPrioritizedRecords: number;
+
+    /**
+     * Count of all unprioritized records that the bookmark can access
+     */
+    readonly totalUnprioritizedRecords: number;
+
+    /**
+     * If user has access to publish ranks for the report
+     */
+    readonly userAllowedToPublishRanks: boolean;
+
+    /**
+     * The card layouts for this object
+     */
+    readonly cardLayout: CardLayout;
+
+    /**
+     * The default card layout, inherited from the project or project line
+     */
+    readonly defaultCardLayout: CardLayout;
+
+    /**
+     * Last custom field that the currently logged in user published ranks to
+     */
+    readonly lastPublishedField: CustomFieldDefinition;
+
+    readonly prioritizedRow: PivotRow;
+
+    /**
+     * Row of user specified data that represents a prioritized record
+     */
+    readonly prioritizedRows: PivotRowPage;
+
+    /**
+     * Project this bookmarks_initiative_priority_list belongs to, if present
+     */
+    readonly project: Project;
+
+    /**
+     * Column widths for rendering the report
+     */
+    columnWidths: Array<PivotColumnWidth>;
+
+    /**
+     * Columns to be displayed in the prioritized section
+     */
+    columns: Array<PivotColumn>;
+
+    /**
+     * Line breaks in the priority list
+     */
+    lineBreaks: Array<LineBreak>;
+
+    /**
+     * List of available custom fields to publish ranks to
+     */
+    readonly publishableCustomFields: Array<CustomFieldDefinition>;
+
+    /**
+     * Scoring system metrics associated with projects included in the bookmark
+     */
+    readonly scoringSystemMetrics: Array<ScoringSystemMetric>;
+
+    /**
+     * List of unprioritized records to display on the page
+     */
+    readonly unprioritizedRecords: Array<PrioritizableRecordUnion>;
+  }
+
+  type BookmarksInitiativePriorityListQuery = Query<
+    BookmarksInitiativePriorityList,
+    never
+  > &
+    QueryFindable<BookmarksInitiativePriorityList>;
+
+  /**
+   * BookmarksInitiativePriorityList Aha! model
+   *
+   *
+   *
+   * Instance type: [[BookmarksInitiativePriorityList]]
+   *
+   * @category Aha! Model
+   */
+  interface BookmarksInitiativePriorityListConstructor
+    extends ApplicationModelConstructor<
+      BookmarksInitiativePriorityList,
+      never,
+      BookmarksInitiativePriorityListQuery
+    > {
+    readonly bookmarkName: 'Bookmarks::InitiativePriorityList';
+  }
+
+  /**
+   * BookmarksInitiativePriorityList Aha! model
+   *
+   *
+   *
+   * Constructor: [[BookmarksInitiativePriorityListConstructor]]
+   *
+   * @category Aha! Model Instance
+   */
+  interface BookmarksInitiativePriorityList
+    extends ApplicationModel,
+      BookmarksInitiativePriorityListAttributes {
+    readonly typename: 'BookmarksInitiativePriorityList';
+
+    readonly query: BookmarksInitiativePriorityListQuery;
+
+    attributes: BookmarksInitiativePriorityListAttributes;
   }
 
   /**
@@ -6484,7 +6655,7 @@ declare namespace Aha {
      */
     readonly ideasCount: number;
 
-    readonly name: string;
+    name: string;
 
     readonly parentId: RecordId;
 
@@ -6507,6 +6678,10 @@ declare namespace Aha {
      */
     readonly releasesCount: number;
 
+    readonly score: number;
+
+    readonly scoringSystemId: RecordId;
+
     readonly startDate: string | Date;
 
     readonly updatedAt: string;
@@ -6518,7 +6693,7 @@ declare namespace Aha {
 
     readonly workflowStatusId: RecordId;
 
-    readonly assignedToUser: User;
+    assignedToUser: User;
 
     /**
      * Best estimated amount of work
@@ -6526,6 +6701,11 @@ declare namespace Aha {
     readonly bestEstimate: Estimate;
 
     readonly createdByUser: User;
+
+    /**
+     * Description note
+     */
+    description: Note;
 
     readonly epoch: Epoch;
 
@@ -6566,7 +6746,12 @@ declare namespace Aha {
     /**
      * The workflow status for this initiative
      */
-    readonly workflowStatus: WorkflowStatus;
+    workflowStatus: WorkflowStatus;
+
+    /**
+     * The position of a record when it is listed in a specific bookmark type
+     */
+    readonly bookmarksRecordPositions: Array<BookmarksRecordPosition>;
 
     /**
      * Child relationship links to other records
@@ -6582,6 +6767,11 @@ declare namespace Aha {
      * Comments
      */
     readonly comments: Array<Comment>;
+
+    /**
+     * Custom field values
+     */
+    readonly customFieldValues: Array<CustomFieldValue>;
 
     /**
      * Epics
@@ -6612,6 +6802,8 @@ declare namespace Aha {
      * Releases
      */
     readonly releases: Array<Release>;
+
+    scoreFacts: Array<ScoreFact>;
 
     /**
      * Watchers
@@ -7845,6 +8037,8 @@ declare namespace Aha {
      */
     readonly ideasCount: number;
 
+    readonly initiativeWorkflowId: RecordId;
+
     /**
      * The number of initiatives
      */
@@ -7927,6 +8121,11 @@ declare namespace Aha {
      * Ideas::IdeaWorkflow this product belongs to, if present
      */
     readonly ideaWorkflow: Workflow;
+
+    /**
+     * InitiativeWorkflow this product belongs to
+     */
+    readonly initiativeWorkflow: Workflow;
 
     /**
      * The parent of this workspace
@@ -8161,6 +8360,11 @@ declare namespace Aha {
      * Whether the user is allowed to create iterations in this workspace/team
      */
     readonly createIterations: boolean;
+
+    /**
+     * Whether the user is allowed to create a note template in this workspace/team
+     */
+    readonly createNoteTemplates: boolean;
 
     /**
      * Whether the user is allowed to create pages in this workspace/team
@@ -8910,7 +9114,7 @@ declare namespace Aha {
 
     readonly daysToRelease: number;
 
-    readonly developmentStartedOn: string | Date;
+    developmentStartedOn: string | Date;
 
     readonly endOn: string | Date;
 
@@ -9337,6 +9541,11 @@ declare namespace Aha {
    * @category Aha! Model Attributes
    */
   interface ReleaseRetrospectiveRecordAttributes {
+    /**
+     * When the record was added to the release
+     */
+    readonly addedOn: string | Date;
+
     readonly assignedToUserId: RecordId;
 
     /**
@@ -9378,6 +9587,11 @@ declare namespace Aha {
      * If the record was removed from the release
      */
     readonly removed: boolean;
+
+    /**
+     * When the record was removed from the release
+     */
+    readonly removedOn: string | Date;
 
     /**
      * Whether or nor the estimates are rolled up for this record
@@ -9789,6 +10003,11 @@ declare namespace Aha {
      * Whether the user is allowed to perform the 'destroy' action for this resource
      */
     readonly destroy: boolean;
+
+    /**
+     * Whether the user is allowed to perform the 'duplicate' action for this resource
+     */
+    readonly duplicate: boolean;
 
     /**
      * Whether the user is allowed to perform the 'show' action for this resource
@@ -10944,6 +11163,7 @@ declare namespace Aha {
     BookmarksEpicPriorityList: BookmarksEpicPriorityListConstructor;
     BookmarksFeaturePriorityList: BookmarksFeaturePriorityListConstructor;
     BookmarksIdeaPriorityList: BookmarksIdeaPriorityListConstructor;
+    BookmarksInitiativePriorityList: BookmarksInitiativePriorityListConstructor;
     BookmarksIterationBurndown: BookmarksIterationBurndownConstructor;
     BookmarksProductValueChart: BookmarksProductValueChartConstructor;
     BookmarksProgramBoard: BookmarksProgramBoardConstructor;
@@ -11044,6 +11264,7 @@ declare namespace Aha {
     | BookmarksEpicPriorityList
     | BookmarksFeaturePriorityList
     | BookmarksIdeaPriorityList
+    | BookmarksInitiativePriorityList
     | BookmarksIterationBurndown
     | BookmarksProductValueChart
     | BookmarksProgramBoard

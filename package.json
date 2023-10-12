@@ -1,6 +1,6 @@
 {
   "name": "trajector1.testrail-1",
-  "description": "TestRail-1",
+  "description": "TestRail",
   "version": "1.0.0",
   "author": "JasonDL-trajector",
   "repository": {
@@ -10,13 +10,15 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.7.1",
-    "@types/react": "^16.8.0"
+    "@types/react": "^16.8.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "ahaExtension": {
     "contributes": {
       "views": {
         "testrail-1": {
-          "title": "TestRail-1",
+          "title": "TestRail",
           "entryPoint": "src/views/TestRailAha.js",
           "host": "attribute",
           "recordTypes": [
@@ -27,10 +29,28 @@
           ]
         }
       }
-    }
+    },
+    "cspSources": [
+      "https://trajector.testrail.com",
+      "https://testrail-lite.testrail.io",
+      "https://p66g8kwmf3.execute-api.ap-southeast-2.amazonaws.com/default/proxy",
+      "https://p66g8kwmf3.execute-api.ap-southeast-2.amazonaws.com/default/cors",
+      "https://ap-southeast-2.console.aws.amazon.com/",
+      "https://5c4zgbyrkb.execute-api.ap-southeast-2.amazonaws.com/default/cors"
+    ]
   },
   "dependencies": {
+    "@aha-develop/aha-develop-react": "^1.4.2",
     "axios": "^1.5.1",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "react-helmet": "^6.1.0",
+    "rollup": "^3.29.4",
+    "typescript": "^5.2.2"
+  },
+  "webpack": {
+    "configure": "./webpack.config.ext.js"
+  },
+  "browser": {
+    "./src": "./src/views/TestRailAha.js"
   }
 }
